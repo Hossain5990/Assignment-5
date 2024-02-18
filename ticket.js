@@ -94,13 +94,32 @@ cuponBtn.addEventListener('click', function () {
   const totalPrice = document.getElementById('total').innerText;
   const grandTotal1 = parseInt(document.getElementById('grand-total').innerText);
   if (cnt >= 4) {
-    if (cuponCode === "NEW15" || cuponCode === "Couple 20" ) {
+    if (cuponCode === "NEW15") {
       const createList1 = document.getElementById('create-container1');
       const li = document.createElement('li');
       const p = document.createElement('p');
       p.innerText = "Discount Price";
       const p2 = document.createElement('p');
       const discountPrice = totalPrice * 0.15;
+      console.log(discountPrice);
+      p2.innerText = discountPrice;
+      li.appendChild(p);
+      li.appendChild(p2);
+      createList1.appendChild(li);
+      const restTotal = document.getElementById('grand-total');
+      restTotal.innerText = grandTotal1 - discountPrice;
+      document.getElementById('cupon-input').value = "";
+      const cuponInput = document.getElementById('cupon-input1');
+      cuponInput.classList.add('hidden');
+
+    }
+    else if(cuponCode === "Couple 20"){
+      const createList1 = document.getElementById('create-container1');
+      const li = document.createElement('li');
+      const p = document.createElement('p');
+      p.innerText = "Discount Price";
+      const p2 = document.createElement('p');
+      const discountPrice = totalPrice * 0.20;
       console.log(discountPrice);
       p2.innerText = discountPrice;
       li.appendChild(p);
