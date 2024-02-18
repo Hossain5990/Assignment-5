@@ -14,9 +14,13 @@ const allSeat = document.getElementsByClassName('kbd');
 let cnt = 0;
 for (const seat of allSeat) {
   seat.addEventListener("click", function (e) {
-    // set click button color
+    if( cnt < 4 && !seat.classList.contains('booked')){
+
+      
+      // set click button color
     e.target.classList.add('bg-green-400');
     // seat count
+    seat.classList.add('booked');
     cnt = cnt + 1;
     setElement('ticket-count', cnt);
 
@@ -36,7 +40,7 @@ for (const seat of allSeat) {
     const p = document.createElement('p');
     p.innerText = seatName;
     const p2 = document.createElement('p');
-    p2.innerText = 'Economyclass';
+    p2.innerText = 'Economy';
     const p3 = document.createElement('p');
     p3.innerText = price;
     li.appendChild(p);
@@ -58,10 +62,20 @@ for (const seat of allSeat) {
     const updatedGrandTotal = grandTotal + convertedPrice;
     setElement('grand-total', updatedGrandTotal);
 
-    
+    // disable button on off
+    if(cnt >= 4){
+      cuponBtn.disabled = false;
+  
+    }
+    else{
+      cuponBtn.disabled = true;
+    }
+  
+  }
 
-
-
+  else{
+    alert("1 person only 4 Seat Booked");
+  }
 
 
     
@@ -72,7 +86,7 @@ for (const seat of allSeat) {
 
 
 
-
+// set function
 function setElement(id, value) {
 
   document.getElementById(id).innerText = value;
@@ -86,12 +100,10 @@ const cuponBtn = document.getElementById('cupon-btn');
 cuponBtn.addEventListener('click', function () {
 
   const cuponCode = document.getElementById('cupon-input').value;
-  const cuponCodes = cuponCode.split(" ").join("").toUpperCase();
-  console.log(cuponCodes);
   const totalPrice = document.getElementById('total').innerText;
   const grandTotal1 = parseInt(document.getElementById('grand-total').innerText);
   if (cnt >= 4) {
-    if (cuponCodes === "NEW15") {
+    if (cuponCode === "NEW15" || cuponCode === "Couple 20" ) {
       const createList1 = document.getElementById('create-container1');
       const li = document.createElement('li');
       const p = document.createElement('p');
@@ -106,29 +118,12 @@ cuponBtn.addEventListener('click', function () {
       const restTotal = document.getElementById('grand-total');
       restTotal.innerText = grandTotal1 - discountPrice;
       document.getElementById('cupon-input').value = "";
-
-    }
-    else if (cuponCodes === "COUPLE20") {
-      const createList1 = document.getElementById('create-container1');
-      const li = document.createElement('li');
-      const p = document.createElement('p');
-      p.innerText = "Discount Price";
-      const p2 = document.createElement('p');
-      const discountPrice = totalPrice * 0.20;
-      console.log(discountPrice);
-      p2.innerText = discountPrice;
-      li.appendChild(p);
-      li.appendChild(p2);
-      createList1.appendChild(li);
-      const restTotal = document.getElementById('grand-total');
-      restTotal.innerText = grandTotal1 - discountPrice;
-
-      document.getElementById('cupon-input').value = "";
-
+      const cuponInput = document.getElementById('cupon-input1');
+      cuponInput.classList.add('hidden');
 
     }
     else {
-      alert("Invalid Coupon");
+      alert("Invalid Coupon Code");
       document.getElementById('cupon-input').value = "";
     }
   }
@@ -136,6 +131,7 @@ cuponBtn.addEventListener('click', function () {
     alert("Buy 4 Ticket");
   }
 
+  
 
 
 });
