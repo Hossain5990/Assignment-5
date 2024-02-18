@@ -64,7 +64,7 @@ for (const seat of allSeat) {
   
   }
 
-  else{
+  else if ( cnt >= 4){
     alert("1 person only 4 Seat Booked");
   }
 
