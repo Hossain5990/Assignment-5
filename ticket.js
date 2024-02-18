@@ -1,13 +1,4 @@
 
-// connect buy ticket to bus seat
-function connectTicket() {
-
-  const busPariahan = document.getElementById('paribahan');
-
-
-}
-
-
 
 
 const allSeat = document.getElementsByClassName('kbd');
